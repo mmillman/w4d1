@@ -5,14 +5,14 @@ class Visit < ActiveRecord::Base
   belongs_to :user
 
   # scope
-  def self.since(minutes_ago)
+  def self.since(minutes_ago) # REV Nice! Freedom from the 10-minute tyranny!
     where(
       "updated_at > :cutoff_time",
       { :cutoff_time => Time.now - (minutes_ago * 60) }
     )
   end
 
-
+# REV Where do you create new visit entries to track user visits?
   def self.unique_visitors(l_id)
     where("link_id = :l_id", { :l_id => l_id }).uniq.pluck(:user_id)
   end
